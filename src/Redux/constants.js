@@ -1,0 +1,6 @@
+export const FETCH_API_SOURCE = "FETCH_API_SOURCE"
+export const SET_SHOW_CARDS = "SET_SHOW_CARDS"
+export const SET_USER_POST = "SET_USER_POST"
+export const SET_POST_COMMENTS = "SET_POST_COMMENTS"
+export const SET_IS_LOADING = "SET_IS_LOADING"
+export const SET_SOURCE = "SET_SOURCE"
