@@ -8,18 +8,17 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import { fetchApiSource } from '../Redux/actions/DataAction';
-import { useDispatch,useSelector } from 'react-redux';
+import React, {useState, useEffect,useContext} from 'react';
+import {ContextIndex} from '../context/Context'
 
 const Home = ({navigation}) => {
-  // const dispatch = useDispatch();
-  // const {items} = useSelector(state => state.dataReducer);
-  const [items, setitems] = useState([]);
+  const {items,fetchNews} = useContext(ContextIndex)
+  // const [items, setitems] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [nameUpdate, setnameUpdate] = useState();
   const [descriptionUpdate, setdescriptionUpdate] = useState();
   const [UID, setUID] = useState();
+
 
   const getData = () => {
     var requestOptions = {
@@ -33,7 +32,7 @@ const Home = ({navigation}) => {
   };
 
   useEffect(() => {
-    getData();
+     fetchNews()
   },[]);
   const EditData = () => {
     var myHeaders = new Headers();
@@ -61,7 +60,7 @@ const Home = ({navigation}) => {
         response.json();
       })
       .then(() => {
-        getData();
+        fetchNews()
       })
       .catch(error => console.log('error', error));
   };
@@ -92,7 +91,7 @@ const Home = ({navigation}) => {
         response.json();
       })
       .then(() => {
-        getData();
+        fetchNews()
       })
       .catch(error => console.log('error', error));
   };
@@ -100,7 +99,6 @@ const Home = ({navigation}) => {
     <View>
       <Modal
         animationType="slide"
-        // transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');

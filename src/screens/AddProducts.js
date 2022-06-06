@@ -1,9 +1,17 @@
 import {StyleSheet, Text, View,TextInput,TouchableOpacity} from 'react-native';
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
+import {ContextIndex} from '../context/Context'
 
 const AddProducts = ({navigation}) => {
+    const {setitems,fetchNews} = useContext(ContextIndex)
+    // console.log('items',items )
     const [name, setname] = useState()
     const [description, setdescription] = useState()
+    const nextPage = async(item) => {
+        await setitems(item.data)
+        await fetchNews()
+        navigation.navigate('Home',{name,description})
+    } 
 
   const AddProducts = () => {
     var myHeaders = new Headers();
@@ -29,7 +37,7 @@ const AddProducts = ({navigation}) => {
 
     fetch('http://192.168.88.98:8082/api/products', requestOptions)
       .then(response => response.json())
-      .then(() =>{navigation.navigate("Home",{name,description})})
+      .then((result) =>nextPage(result),)
       .catch(error => console.log('error', error));
   };
  
